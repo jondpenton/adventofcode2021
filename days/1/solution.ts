@@ -1,14 +1,8 @@
-import path from 'path'
-import fs from 'fs/promises'
+import { getInputLines } from '../../utils/read-input'
 
 async function main() {
-  const inputStr = await fs.readFile(path.resolve(__dirname, `./input.txt`), {
-    encoding: `utf-8`,
-  })
-  const measurements = inputStr
-    .split(/[\n\r]/)
-    .filter((line) => line !== ``)
-    .map(Number)
+  const lines = await getInputLines(__dirname)
+  const measurements = lines.map(Number)
   let increasedMeasurementCount = 0
 
   for (let i = 1; i < measurements.length; i++) {
