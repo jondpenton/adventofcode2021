@@ -3,7 +3,7 @@ import { getInputLines } from '../../utils/read-input'
 async function main() {
   const lines = await getInputLines(__dirname)
   let x = 0
-  let depth = 0
+  let z = 0
 
   for (const line of lines) {
     const [command, numStr] = line.split(/\s/)
@@ -15,17 +15,17 @@ async function main() {
         break
       }
       case `down`: {
-        depth += num
+        z -= num
         break
       }
       case `up`: {
-        depth -= num
+        z += num
         break
       }
     }
   }
 
-  console.log(x * depth)
+  console.log(x * -z)
 }
 
 main()

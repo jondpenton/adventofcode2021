@@ -3,8 +3,8 @@ import { getInputLines } from '../../utils/read-input'
 async function main() {
   const lines = await getInputLines(__dirname)
   let x = 0
-  let depth = 0
-  let aim = 0
+  let z = 0
+  let pitch = 0
 
   for (const line of lines) {
     const [command, numStr] = line.split(/\s/)
@@ -13,21 +13,21 @@ async function main() {
     switch (command) {
       case `forward`: {
         x += num
-        depth += aim * num
+        z -= pitch * num
         break
       }
       case `down`: {
-        aim += num
+        pitch += num
         break
       }
       case `up`: {
-        aim -= num
+        pitch -= num
         break
       }
     }
   }
 
-  console.log(x * depth)
+  console.log(x * -z)
 }
 
 main()
