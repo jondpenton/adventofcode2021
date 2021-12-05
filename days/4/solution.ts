@@ -22,6 +22,7 @@ async function main() {
           marked: false,
         }))
     )
+    boards.push(board)
   }
 
   for (const numberDrawn of numbersDrawn) {
