@@ -8,8 +8,8 @@ export async function getInputLines(dirname: string) {
   })
   const lines = input
     .trim()
-    .split(/[\n\r]+/)
-    .map((line) => line.trim())
+    .split(/\n/)
+    .map(line => line.trim())
 
   return lines
 }
