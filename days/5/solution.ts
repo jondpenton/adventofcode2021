@@ -35,7 +35,7 @@ async function main() {
       lineSegment.start.x === lineSegment.end.x ||
       lineSegment.start.y === lineSegment.end.y
   )
-  const commonPoints: ICoordinate[] = []
+  const commonPoints = new Map<number, number[]>()
 
   for (let i = 0; i < verticalOrHorizontalLineSegments.length; i++) {
     const segment1 = verticalOrHorizontalLineSegments[i]
@@ -49,20 +49,30 @@ async function main() {
         for (const segment2Point of segment2Points) {
           if (
             segment1Point.x === segment2Point.x &&
-            segment1Point.y === segment2Point.y &&
-            !commonPoints.some(
-              point =>
-                point.x === segment1Point.x && point.y === segment1Point.y
-            )
+            segment1Point.y === segment2Point.y
           ) {
-            commonPoints.push(segment1Point)
+            if (commonPoints.has(segment1Point.x)) {
+              const yArr = commonPoints.get(segment1Point.x)!
+
+              if (!yArr.includes(segment1Point.y)) {
+                yArr.push(segment1Point.y)
+                commonPoints.set(segment1Point.x, yArr)
+              }
+            } else {
+              commonPoints.set(segment1Point.x, [segment1Point.y])
+            }
           }
         }
       }
     }
   }
 
-  console.log(commonPoints.length)
+  const totalPoints = Array.from(commonPoints.entries()).reduce(
+    (total, item) => item[1].length + total,
+    0
+  )
+
+  console.log(totalPoints)
 }
 
 main()
